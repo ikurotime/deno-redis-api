@@ -42,14 +42,9 @@ app.post('/post/:id', async (c) => {
 //GET USER KEYS
 app.get('/get/:id', async (c) => {
   const param = c.req.param()
-  const tasks = new Map()
   const keys = await redis.keys(param.id + ':*')
-  for (const key of keys) {
-    const value = await redis.get(key)
-    tasks.set(key, value)
-  }
-  const parsedValue = Array.from(tasks.values()).map((v) => JSON.parse(v))
-  return c.json(Array.from(parsedValue))
+  const values = await redis.mget(...keys)
+  return c.json(values)
 })
 // DELETE USER KEY
 app.delete('/delete/:id', async (c) => {
