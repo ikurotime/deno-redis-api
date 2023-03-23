@@ -16,7 +16,7 @@ app.use(
 const redis = new Redis({
   url: 'https://divine-wildcat-33504.upstash.io',
   token:
-    config?.()?.REDIS_PASSWORD || (Deno.env.get('REDIS_PASSWORD') as string)
+    (Deno.env.get('REDIS_PASSWORD') as string) || config?.()?.REDIS_PASSWORD
 })
 
 //const foo = await redis.set('valor', 'davorpatech')
