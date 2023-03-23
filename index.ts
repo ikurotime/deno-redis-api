@@ -22,6 +22,7 @@ const redis = new Redis({
 //const foo = await redis.set('valor', 'davorpatech')
 
 app.get('/', (c) => {
+  console.log(Deno.env.get('TEST'))
   return c.text('Hello World')
 })
 // GET ALL KEYS
